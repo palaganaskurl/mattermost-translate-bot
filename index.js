@@ -1,7 +1,8 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
-const port = process.env.port || 6969;
+const port = process.env.PORT || 6969;
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
@@ -12,4 +13,4 @@ app.post('/webhook', (req, res) => {
   console.log(req);
 });
 
-app.listen(port, () => console.log(`App listening on port ${port}`));
+const listener = app.listen(port, () => console.log(`App is listening on port ${listener.address().port}`));
