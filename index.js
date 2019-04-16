@@ -10,7 +10,10 @@ app.get('/', (req, res) => {
 });
 
 app.post('/webhook', (req, res) => {
-  console.log(req);
+  const { text } = req.body;
+
+  console.log(req.body);
+  console.log(text);
 });
 
 const listener = app.listen(port, () => console.log(`App is listening on port ${listener.address().port}`));
