@@ -28,8 +28,18 @@ app.post('/webhook', async (req, res) => {
 
   console.log(req.body, text, wordToBeTranslated, fromLanguage, toLanguage);
 
-  const translated = await translator.getText(wordToBeTranslated, { from: fromLanguage, to: toLanguage });
-  console.log(translated);
+  translator.getText(wordToBeTranslated, { from: fromLanguage, to: toLanguage })
+    .then(text => console.log('Translated: ', text))
+    .catch(err => console.log('Error: ', err));
+
+  let translated = '';
+
+  try {
+    translated = await translator.getText(wordToBeTranslated, { from: fromLanguage, to: toLanguage });
+  } catch (e) {
+    console.log('Error: ', e);
+  }
+
   res.set('Content-Type', 'application/json');
   res.status(200).send({
     text: 'Translate.'
