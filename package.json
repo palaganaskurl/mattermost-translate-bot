@@ -12,7 +12,5 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4"
   },
-  "devDependencies": {
-    "sync-glitch-cli": "^2.0.1"
-  }
+  "devDependencies": {}
 }
