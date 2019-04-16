@@ -1,5 +1,7 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
+const translator = require('translate-api');
+
 const port = process.env.PORT || 6969;
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -10,10 +12,21 @@ app.get('/', (req, res) => {
 });
 
 app.post('/webhook', (req, res) => {
+  // Translate format - translate Hello en-tl
   const { text } = req.body;
 
-  console.log(req.body);
-  console.log(text);
+  const WORD_TO_BE_TRANSLATED = 1;
+  const LANGUAGE_FROM_TO = 2;
+  const FROM_LANGUAGE = 0;
+  const TO_LANGUAGE = 1;
+
+  const args = text.split(' ');
+  const wordToBeTranslated = args[WORD_TO_BE_TRANSLATED];
+  const languageDirection = args[LANGUAGE_FROM_TO].split('-');
+  const fromLanguage = languageDirection[FROM_LANGUAGE];
+  const toLanguage = languageDirection[TO_LANGUAGE];
+
+  console.log(req.body, text, wordToBeTranslated, fromLanguage, toLanguage);
 
   res.set('Content-Type', 'application/json');
   res.status(200).send({
