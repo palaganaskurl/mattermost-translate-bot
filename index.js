@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
   res.send('Test!');
 });
 
-app.post('/webhook', (req, res) => {
+app.post('/webhook', async (req, res) => {
   // Translate format - translate Hello en-tl
   const { text } = req.body;
 
@@ -28,6 +28,8 @@ app.post('/webhook', (req, res) => {
 
   console.log(req.body, text, wordToBeTranslated, fromLanguage, toLanguage);
 
+  const translated = await translator.getText(wordToBeTranslated, { from: fromLanguage, to: toLanguage });
+  console.log(translated);
   res.set('Content-Type', 'application/json');
   res.status(200).send({
     text: 'Translate.'
